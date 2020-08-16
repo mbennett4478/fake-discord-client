@@ -12,18 +12,33 @@ import ChannelList from "../components/ChannelList";
 import styled from "@emotion/styled";
 import { Typography } from "@material-ui/core";
 
-const MainContainer = styled(Grid)({
+const MainContainer = styled.div({
+  display: "flex",
+  overflow: "hidden",
   position: "absolute",
-  left: "72px !important",
-  flex: "0 0 auto",
+  left: "72px",
+  right: 0,
+  top: 0,
+  bottom: 0,
+});
+
+const Content = styled.div({
+  display: "flex",
+  alignItems: "stretch",
+  justifyContent: "flex-start",
+  minWidth: 0,
+  minHeight: 0,
+  flex: "1 1 auto",
 });
 
 const TestRoute = () => {
   return (
-    <Grid>
+    <Grid style={{ fontSize: "1rem" }}>
       <ServerList />
-      <MainContainer container direction="column">
-        <ChannelList />
+      <MainContainer>
+        <Content>
+          <ChannelList />
+        </Content>
       </MainContainer>
     </Grid>
   );
