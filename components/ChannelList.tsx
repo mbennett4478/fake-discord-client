@@ -12,6 +12,7 @@ import {
   faBell,
   faPencilAlt,
   faShieldVirus,
+  faMicrophoneSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "@emotion/styled";
@@ -25,6 +26,8 @@ import {
   Divider,
   makeStyles,
   ClickAwayListener,
+  IconButton,
+  Avatar,
 } from "@material-ui/core";
 import GenericTooltip from "./GenericTooltip";
 import GenericListItem from "./List";
@@ -272,6 +275,61 @@ const useStyles = makeStyles({
       color: "white",
     },
   },
+  userArea: {
+    height: "52px",
+    fontSize: "14px",
+    fontWeight: 500,
+    display: "flex",
+    alignItems: "center",
+    padding: "0 8px",
+    backgroundColor: "#292b2f",
+  },
+  avatarContainer: {
+    marginRight: "8px",
+    position: "relative",
+  },
+  usernameContainer: {
+    cursor: "pointer",
+    userSelect: "text",
+    flexGrow: 1,
+    marginRight: "4px",
+    position: "relative",
+  },
+  username: {
+    display: "flex",
+    alignItems: "center",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    color: "#dcddde",
+    fontSize: "14px",
+    lineHeight: "18px",
+  },
+  usernameText: {
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    color: "white",
+    lineHeight: "18px",
+    fontWeight: 600,
+    fontSize: "14px",
+  },
+  userNumber: {
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    color: "#b9bbbe",
+    lineHeight: "13px",
+    fontSize: "12px",
+  },
+  audioContainer: {
+    flex: "0 1 auto",
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    justifyContent: "flex-start",
+    alignItems: "stretch",
+    display: "flex",
+  },
 });
 
 export default function ChannelList() {
@@ -349,6 +407,28 @@ export default function ChannelList() {
             <Channel voice name="AFK" />
           </div>
         </ChannelContainer>
+        <div className={classes.userArea}>
+          <div className={classes.avatarContainer}>
+            <Avatar>TE</Avatar>
+          </div>
+          <div className={classes.usernameContainer}>
+            <div className={classes.username}>
+              <div className={classes.usernameText}>Simple Jack</div>
+            </div>
+            <div className={classes.userNumber}>#2451</div>
+          </div>
+          <div className={classes.audioContainer}>
+            <IconButton color="primary" size="small">
+              <FontAwesomeIcon icon={faMicrophoneSlash} />
+            </IconButton>
+            <IconButton color="primary" size="small">
+              <FontAwesomeIcon icon={faMicrophoneSlash} />
+            </IconButton>
+            <IconButton color="primary" size="small">
+              <FontAwesomeIcon icon={faMicrophoneSlash} />
+            </IconButton>
+          </div>
+        </div>
       </Container>
     </Sidebar>
   );
