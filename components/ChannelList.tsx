@@ -6,13 +6,11 @@ import {
   faGem,
   faChevronDown,
   faVolumeUp,
-  faInbox,
   faPlusCircle,
   faFolderPlus,
   faBell,
   faPencilAlt,
   faShieldVirus,
-  faMicrophoneSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "@emotion/styled";
@@ -31,6 +29,8 @@ import {
 } from "@material-ui/core";
 import GenericTooltip from "./GenericTooltip";
 import GenericListItem from "./List";
+import AudioIcon from "./icons/AudioIcon";
+import UserAudioContainer from "./channels/UserAudioContainer";
 
 const Sidebar = styled.div({
   flexDirection: "column",
@@ -154,13 +154,14 @@ const PoundSymbol = styled(FontAwesomeIcon)({
 
 type ChannelTextProps = {
   selected?: boolean;
+  hovered?: boolean;
 };
 
-const ChannelText = styled.div(({ selected }: ChannelTextProps) => ({
-  color: selected ? "white" : "#72767d",
+const ChannelText = styled.div(({ hovered, selected }: ChannelTextProps) => ({
+  color: selected || hovered ? "white" : "#72767d",
   fontSize: "14px",
   lineHeight: "20px",
-  fontWeight: 500,
+  fontWeight: 600,
   whiteSpace: "nowrap",
   flex: "1 1 auto",
   textOverflow: "ellipsis",
@@ -218,7 +219,9 @@ function Channel({ voice, selected, name }: ChannelProps) {
           onMouseLeave={onHover}
         >
           <PoundSymbol icon={voice ? faVolumeUp : faHashtag} />
-          <ChannelText selected={selected}>{name}</ChannelText>
+          <ChannelText selected={selected} hovered={hovered}>
+            {name}
+          </ChannelText>
           <ActionIconContainer selected={(selected && !voice) || hovered}>
             <GenericTooltip title="Create Invite" placement="top">
               <AddUserIconContainer>
@@ -245,23 +248,6 @@ function Channel({ voice, selected, name }: ChannelProps) {
   );
 }
 
-const StyledListItem = styled(ListItem)({
-  padding: "5px",
-  borderRadius: "2px",
-  "&:hover": {
-    backgroundColor: "#5c6fb1",
-  },
-  margin: "2px 0",
-});
-
-const StyledCheckbox = styled(Checkbox)({
-  // padding: "0px 4px",
-  backgroundColor: "tranparent !important",
-  "&& .MuiIconButton-colorSecondary": {
-    backgroundColor: "tranparent !important",
-  },
-});
-
 const useStyles = makeStyles({
   root: {
     padding: "0px 4px",
@@ -274,61 +260,6 @@ const useStyles = makeStyles({
     "&.MuiCheckbox-colorSecondary.Mui-checked": {
       color: "white",
     },
-  },
-  userArea: {
-    height: "52px",
-    fontSize: "14px",
-    fontWeight: 500,
-    display: "flex",
-    alignItems: "center",
-    padding: "0 8px",
-    backgroundColor: "#292b2f",
-  },
-  avatarContainer: {
-    marginRight: "8px",
-    position: "relative",
-  },
-  usernameContainer: {
-    cursor: "pointer",
-    userSelect: "text",
-    flexGrow: 1,
-    marginRight: "4px",
-    position: "relative",
-  },
-  username: {
-    display: "flex",
-    alignItems: "center",
-    whiteSpace: "nowrap",
-    textOverflow: "ellipsis",
-    overflow: "hidden",
-    color: "#dcddde",
-    fontSize: "14px",
-    lineHeight: "18px",
-  },
-  usernameText: {
-    whiteSpace: "nowrap",
-    textOverflow: "ellipsis",
-    overflow: "hidden",
-    color: "white",
-    lineHeight: "18px",
-    fontWeight: 600,
-    fontSize: "14px",
-  },
-  userNumber: {
-    whiteSpace: "nowrap",
-    textOverflow: "ellipsis",
-    overflow: "hidden",
-    color: "#b9bbbe",
-    lineHeight: "13px",
-    fontSize: "12px",
-  },
-  audioContainer: {
-    flex: "0 1 auto",
-    flexDirection: "row",
-    flexWrap: "nowrap",
-    justifyContent: "flex-start",
-    alignItems: "stretch",
-    display: "flex",
   },
 });
 
@@ -407,28 +338,7 @@ export default function ChannelList() {
             <Channel voice name="AFK" />
           </div>
         </ChannelContainer>
-        <div className={classes.userArea}>
-          <div className={classes.avatarContainer}>
-            <Avatar>TE</Avatar>
-          </div>
-          <div className={classes.usernameContainer}>
-            <div className={classes.username}>
-              <div className={classes.usernameText}>Simple Jack</div>
-            </div>
-            <div className={classes.userNumber}>#2451</div>
-          </div>
-          <div className={classes.audioContainer}>
-            <IconButton color="primary" size="small">
-              <FontAwesomeIcon icon={faMicrophoneSlash} />
-            </IconButton>
-            <IconButton color="primary" size="small">
-              <FontAwesomeIcon icon={faMicrophoneSlash} />
-            </IconButton>
-            <IconButton color="primary" size="small">
-              <FontAwesomeIcon icon={faMicrophoneSlash} />
-            </IconButton>
-          </div>
-        </div>
+        <UserAudioContainer />
       </Container>
     </Sidebar>
   );
